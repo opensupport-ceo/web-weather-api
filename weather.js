@@ -45,7 +45,7 @@ function realTimeWeather(nx, ny) {
     /* 좌표 */
     var _nx = nx; 
     var _ny = ny;
-    var apikey = "API-Key";
+    var apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D";
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     ForecastGribURL += "?ServiceKey=" + apikey;
     ForecastGribURL += "&base_date=" + today;
@@ -57,76 +57,60 @@ function realTimeWeather(nx, ny) {
 $.ajax({
     url: ForecastGribURL
     ,type: 'get'
-    ,success: function(msg) {
- /*
-       var text = msg.responseText;
-       //console.log(text);
-       text = text.replace(/(<([^>]+)>)/ig,""); //HTML 태그 모두 공백으로 대체
-       text = '[' + text + ']';
-       var json = $.parseJSON(text);
+    ,success: function(msg) { 
+        //var text = msg.responseText;
+        var text = JSON.stringify(msg);
+        //console.log(text);
+        text = text.replace(/(<([^>]+)>)/ig,""); //HTML 태그 모두 공백으로 대체
+        text = '[' + text + ']';
+        
+        var jsonObj = $.parseJSON(text);
+        //console.log(jsonObj);
+        var rainsnow = jsonObj[0].response.body.items.item[0].fcstValue;
+        var rain_state = jsonObj[0].response.body.items.item[1].fcstValue;
+        var rain = jsonObj[0].response.body.items.item[3].fcstValue;
+        var sky = jsonObj[0].response.body.items.item[4].fcstValue;
+        var temperature = jsonObj[0].response.body.items.item[5].fcstValue;
+
+        console.log(rainsnow);
+        console.log(rain_state);
+        console.log(rain);
+        console.log(sky);
+        console.log(temperature);
+        
+        $('.weather-temp').html(temperature.toFixed(1) + " ℃");
+        $('#RN1').html("시간당강수량 : "+ rain +"mm");
        
-       var rain_state = json[0].response.body.items.item[1].obsrValue;
-       var rain = json[0].response.body.items.item[3].obsrValue;
-       var sky = json[0].response.body.items.item[4].obsrValue;
-       var temperature = json[0].response.body.items.item[5].obsrValue;
- */      
-       var text = JSON.stringify(msg);
-       console.log(text);
-       text = text.replace(/(<([^>]+)>)/ig,""); //HTML 태그 모두 공백으로 대체
-       text = '[' + text + ']';
-       var json = $.parseJSON(text);
-       
-       var rain_state = json[0].response.body.items.item[1].fcstValue;
-       console.log(rain_state);
-       var rain = json[0].response.body.items.item[3].fcstValue;
-       console.log(rain);
-       var sky = json[0].response.body.items.item[4].fcstValue;
-       console.log(sky);
-       var temperature = json[0].response.body.items.item[5].fcstValue;
-       console.log(temperature);
-       
-       /*
-       var rain_state = jsonStr[0].response.body.items.item[1].obsrValue;
-       console.log(rain_state);
-       var rain = jsonStr[0].response.body.items.item[3].obsrValue;
-       console.log(rain);
-       var sky = jsonStr[0].response.body.items.item[4].obsrValue;
-       console.log(sky);
-       var temperature = jsonStr[0].response.body.items.item[5].obsrValue;
-       console.log(temperature);
-    */
-       $('.weather-temp').html(temperature.toFixed(1) + " ℃");
-       $('#RN1').html("시간당강수량 : "+ rain +"mm");
-       
-           if(rain_state != 0) {
-               switch(rain_state) {
-                   case 1:
-                    $('.weather-state-text').html("비");
-                       break;
-                   case 2:
-                       $('.weather-state-text').html("비/눈");
-                       break;
-                   case 3:
-                       $('.weather-state-text').html("눈");
-                       break;
-               }
-           }else {
-               switch(sky) {
-                   case 1:
-                       $('.weather-state-text').html("맑음");
-                       break;
-                   case 2:
-                       $('.weather-state-text').html("구름조금");
-                       break;
-                   case 3:
-                    $('.weather-state-text').html("구름많음");
-                       break;
-                   case 4:
-                    $('.weather-state-text').html("흐림");    
-                       break;
-                   }    
-               } //if 종료
-        } //success func 종료
-    })    
+        if(rain_state != 0) {
+            switch(rain_state) {//0
+                case 1:
+                $('.weather-state-text').html("비");
+                    break;
+                case 2:
+                    $('.weather-state-text').html("비/눈");
+                    break;
+                case 3:
+                    $('.weather-state-text').html("눈");
+                    break;
+            }
+        }else{
+            switch(sky) { //20
+                case 1:
+                    $('.weather-state-text').html("맑음");
+                    break;
+                case 2:
+                    $('.weather-state-text').html("구름조금");
+                    break;
+                case 3:
+                $('.weather-state-text').html("구름많음");
+                    break;
+                case 4:
+                $('.weather-state-text').html("흐림");    
+                    break;
+            }
+        $('.weather-state-text').html("맑음");    
+        } //if
+    } //success
+  })    
 }
 

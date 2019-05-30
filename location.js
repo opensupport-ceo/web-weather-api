@@ -1,5 +1,4 @@
-// LCC DFS 좌표변환을 위한 기초 자료
-//
+/* LCC DFS 좌표변환을 위한 기초 자료 */
 var RE = 6371.00877; // 지구 반경(km)
 var GRID = 5.0; // 격자 간격(km)
 var SLAT1 = 30.0; // 투영 위도1(degree)
@@ -8,9 +7,11 @@ var OLON = 126.0; // 기준점 경도(degree)
 var OLAT = 38.0; // 기준점 위도(degree)
 var XO = 43; // 기준점 X좌표(GRID)
 var YO = 136; // 기1준점 Y좌표(GRID)
-//
-// LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
-//
+
+/* 
+**   LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도),
+**   "toLL"(좌표->위경도,v1:x, v2:y) )
+*/
 function dfs_xy_conv(code, v1, v2) {
     var DEGRAD = Math.PI / 180.0;
     var RADDEG = 180.0 / Math.PI;
@@ -76,14 +77,14 @@ function rplLine(value){
     }
 }
 
-function xml2jsonCurrentWth(nx, ny){
+function locationRealTimeWeather(nx, ny){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
     var hours = today.getHours();
     var minutes = today.getMinutes();
-    console.log("time " + minutes)
+    console.log("minutes: " + minutes)
  
     if(minutes < 30){
         // 30분보다 작으면 한시간 전 값
@@ -109,9 +110,8 @@ function xml2jsonCurrentWth(nx, ny){
  
     var _nx = nx,
     _ny = ny,
-    apikey = "API-Key",
+    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
     today = yyyy+""+mm+""+dd,
-    //today = yyyy+mm+dd,
     basetime = hours + "00",
     fileName = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     fileName += "?ServiceKey=" + apikey;
@@ -126,38 +126,29 @@ function xml2jsonCurrentWth(nx, ny){
         type: 'GET',
         cache: false,
         success: function(data) {
-        /*    
-            var myXML = rplLine(data.responseText);
-            var indexS = myXML.indexOf('"body":{"items":{'),
-                indexE = myXML.indexOf("}]}"),
-                result = myXML;
-//                result = myXML.substring(indexS, indexE);
-            var jsonObj = $.parseJSON('[' + result + ']'),
-                rainsnow = jsonObj[0].response.body.items.item[0].obsrValue,
-                sky = jsonObj[0].response.body.items.item[4].obsrValue,
-                temp = jsonObj[0].response.body.items.item[5].obsrValue;
-        */
+            //var myXML = rplLine(data.responseText);
             var myXML = JSON.stringify(data);
-            var indexS = myXML.indexOf('"body":{"items":{'),
-            indexE = myXML.indexOf("}]}"),
-            result = myXML;
-//                result = myXML.substring(indexS, indexE);
-            console.log(result);
+            var indexS = myXML.indexOf('"body":{"items":{');
+            var indexE = myXML.indexOf("}]}");
+            var result = myXML;
+            //result = myXML.substring(indexS, indexE);
 
             var jsonObj = $.parseJSON('[' + result + ']');
-            console.log(jsonObj);    
-
+            //console.log(jsonObj);
             var rainsnow = jsonObj[0].response.body.items.item[0].fcstValue;
+            var rain_state = jsonObj[0].response.body.items.item[1].fcstValue;
+            var rain = jsonObj[0].response.body.items.item[3].fcstValue;
             var sky = jsonObj[0].response.body.items.item[4].fcstValue;
-            var temp = jsonObj[0].response.body.items.item[5].fcstValue;
+            var temperature = jsonObj[0].response.body.items.item[5].fcstValue;
 
             console.log(rainsnow);
+            console.log(rain_state);
+            console.log(rain);
             console.log(sky);
-            console.log(temp);
-            
-            
-            var contentText = document.getElementById('content');
-            //contentText.innerHTML = "하늘 상태 : " + sky + " / 눈 비 상태 : " + rainsnow + " / 온도 : " + temp;
+            console.log(temperature);
+                      
+            var contentText = document.getElementById('allweather');
+            contentText.innerHTML = "하늘 상태 : " + sky + " / 눈 비 상태 : " + rainsnow + " / 온도 : " + temperature;
         },
         error:function(request,status,error){
             alert("다시 시도해주세요.\n" + "code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -175,8 +166,8 @@ function locationSuccess(p){
     var rs = dfs_xy_conv("toXY",latitude,longitude);
     console.log(rs.nx, rs.ny);
     
-    xml2jsonCurrentWth(rs.nx, rs.ny);
-    realTimeWeather(rs.nx, rs.ny);
+    locationRealTimeWeather(rs.nx, rs.ny);
+    //realTimeWeather(rs.nx, rs.ny);
 }
 
  function locationError(error){
