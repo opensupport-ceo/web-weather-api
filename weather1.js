@@ -36,8 +36,16 @@ function realTimeWeather1(nx, ny){
     }
     if(dd<10) {
         dd='0'+dd
-    } 
- 
+    }
+
+    /* 
+    ** test for hours because of items's count 
+    ** Could not get weather info. when from 05:30 to 08:29.
+    */
+    //hours = '05';
+
+    console.log(hours);
+
     var _nx = nx,
     _ny = ny,
     apikey = "API-Key",
@@ -48,7 +56,7 @@ function realTimeWeather1(nx, ny){
     fileName += "&base_date=" + today;
     fileName += "&base_time=" + basetime;
     fileName += "&nx=" + _nx + "&ny=" + _ny;
-    fileName += "&pageNo=1&numOfRows=10";
+    fileName += "&pageNo=1&numOfRows=7";
     fileName += "&_type=json";
  
     $.ajax({
@@ -89,10 +97,3 @@ function realTimeWeather1(nx, ny){
     });
  
 }
-
-
-
-
-
-
-

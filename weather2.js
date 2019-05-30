@@ -42,6 +42,12 @@ function realTimeWeather2(nx, ny) {
  
     today = year+""+month+""+day;
     
+    /* 
+    ** test for hours because of items's count 
+    ** Could not get weather info. when from 05:30 to 08:29.
+    */
+    //hours = '05';
+    
     /* 좌표 */
     var _nx = nx; 
     var _ny = ny;
