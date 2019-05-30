@@ -1,4 +1,4 @@
-function realTimeWeather(nx, ny) {
+function realTimeWeather2(nx, ny) {
     
     var today = new Date();
     var week = new Array('일','월','화','수','목','금','토');
