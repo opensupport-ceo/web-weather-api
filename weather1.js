@@ -65,12 +65,15 @@ function realTimeWeather1(nx, ny){
 
             var jsonObj = $.parseJSON('[' + result + ']');
             //console.log(jsonObj);
-            var rainsnow = jsonObj[0].response.body.items.item[0].fcstValue;
-            var rain_state = jsonObj[0].response.body.items.item[1].fcstValue;
-            var rain = jsonObj[0].response.body.items.item[3].fcstValue;
-            var sky = jsonObj[0].response.body.items.item[4].fcstValue;
-            var temperature = jsonObj[0].response.body.items.item[5].fcstValue;
-
+            if(jsonObj[0].response.body.totalCount != 0){
+                var rainsnow = jsonObj[0].response.body.items.item[0].fcstValue;
+                var rain_state = jsonObj[0].response.body.items.item[1].fcstValue;
+                var rain = jsonObj[0].response.body.items.item[3].fcstValue;
+                var sky = jsonObj[0].response.body.items.item[4].fcstValue;
+                var temperature = jsonObj[0].response.body.items.item[5].fcstValue;
+            }else{
+                console.log("Could not get weather info.");
+            }
             console.log(rainsnow);
             console.log(rain_state);
             console.log(rain);
