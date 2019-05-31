@@ -81,6 +81,7 @@ function locationSuccess(p){
     //realTimeWeather1(rs.nx, rs.ny);
     //realTimeWeather2(rs.nx, rs.ny);
     realTimeWeather3(rs.nx, rs.ny);
+    //realTimeWeather4(rs.nx, rs.ny);
 }
 
  function locationError(error){
