@@ -78,8 +78,9 @@ function locationSuccess(p){
     var rs = dfs_xy_conv("toXY",latitude,longitude);
     console.log(rs.nx, rs.ny);
     
-    realTimeWeather1(rs.nx, rs.ny);
+    //realTimeWeather1(rs.nx, rs.ny);
     //realTimeWeather2(rs.nx, rs.ny);
+    realTimeWeather3(rs.nx, rs.ny);
 }
 
  function locationError(error){
