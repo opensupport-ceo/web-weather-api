@@ -1,32 +1,31 @@
-function realTimeWeather3(nx, ny){
+function Weather3(nx, ny){
     var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
+    var week = new Array('일','월','화','수','목','금','토');
+    var year = today.getFullYear();
+    var month = today.getMonth()+1;
+    var day = today.getDate();
     var hours = today.getHours();
     var minutes = today.getMinutes();
     console.log("minutes: " + minutes)
  
     if(minutes < 30){
-        // 30분보다 작으면 한시간 전 값
         hours = hours - 1;
         if(hours < 0){
-            // 자정 이전은 전날로 계산
             today.setDate(today.getDate() - 1);
-            dd = today.getDate();
-            mm = today.getMonth()+1;
-            yyyy = today.getFullYear();
+            day = today.getDate();
+            month = today.getMonth()+1;
+            year = today.getFullYear();
             hours = 23;
         }
     }
     if(hours<10) {
         hours='0'+hours
     }
-    if(mm<10) {
-        mm='0'+mm
+    if(month<10) {
+        month='0'+month
     }
-    if(dd<10) {
-        dd='0'+dd
+    if(day<10) {
+        day='0'+day
     }
 
     /* 
@@ -34,13 +33,12 @@ function realTimeWeather3(nx, ny){
     ** Could not get weather info. when from 05:30 to 08:29.
     */
     //hours = '05';
-
     console.log(hours);
 
     var _nx = nx,
     _ny = ny,
-    apikey = "API-Key",
-    today = yyyy+""+mm+""+dd,
+    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
+    today = year+""+month+""+day,
     basetime = hours + "00",
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     ForecastGribURL += "?ServiceKey=" + apikey;

@@ -1,4 +1,4 @@
-function realTimeWeather2(nx, ny) {
+function Weather2(nx, ny) {
     
     var today = new Date();
     var week = new Array('일','월','화','수','목','금','토');
@@ -11,13 +11,13 @@ function realTimeWeather2(nx, ny) {
     $('.weather-date').html(month +"월 " + day + "일 " + week[today.getDay()]+"요일");
  
     /*
-     * 기상청 30분마다 발표
-     * 30분보다 작으면, 한시간 전 hours 값
+     * Korean Weather agency release, every 30 minute.
      */
     if(minutes < 30){
+        // When minutes < 30, hours should be set value ealier than 1 hour.
         hours = hours - 1;
         if(hours < 0){
-            // 자정 이전은 전날로 계산
+            // When hours < 0, day should be set value of ealier day.
             today.setDate(today.getDate() - 1);
             day = today.getDate();
             month = today.getMonth()+1;
@@ -25,10 +25,6 @@ function realTimeWeather2(nx, ny) {
             hours = 23;
         }
     }
-    
-    /* example
-     * 9시 -> 09시 변경 필요
-     */
     
     if(hours < 10) {
         hours = '0'+hours;
@@ -51,7 +47,7 @@ function realTimeWeather2(nx, ny) {
     /* 좌표 */
     var _nx = nx; 
     var _ny = ny;
-    var apikey = "API-Key";
+    var apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D";
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     ForecastGribURL += "?ServiceKey=" + apikey;
     ForecastGribURL += "&base_date=" + today;
@@ -67,7 +63,7 @@ $.ajax({
         //var text = msg.responseText;
         var text = JSON.stringify(msg);
         //console.log(text);
-        text = text.replace(/(<([^>]+)>)/ig,""); //HTML 태그 모두 공백으로 대체
+        text = text.replace(/(<([^>]+)>)/ig,""); // all HTML tag -> space. 
         text = '[' + text + ']';
         
         var jsonObj = $.parseJSON(text);

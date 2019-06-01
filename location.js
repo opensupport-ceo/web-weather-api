@@ -1,16 +1,17 @@
 /* LCC DFS 좌표변환을 위한 기초 자료 */
-var RE = 6371.00877; // 지구 반경(km)
-var GRID = 5.0; // 격자 간격(km)
-var SLAT1 = 30.0; // 투영 위도1(degree)
-var SLAT2 = 60.0; // 투영 위도2(degree)
-var OLON = 126.0; // 기준점 경도(degree)
-var OLAT = 38.0; // 기준점 위도(degree)
-var XO = 43; // 기준점 X좌표(GRID)
-var YO = 136; // 기1준점 Y좌표(GRID)
+var RE = 6371.00877;    // 지구 반경(km)
+var GRID = 5.0;         // 격자 간격(km)
+var SLAT1 = 30.0;       // 투영 위도1(degree)
+var SLAT2 = 60.0;       // 투영 위도2(degree)
+var OLON = 126.0;       // 기준점 경도(degree)
+var OLAT = 38.0;        // 기준점 위도(degree)
+var XO = 43;            // 기준점 X좌표(GRID)
+var YO = 136;           // 기1준점 Y좌표(GRID)
 
 /* 
-**   LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도),
-**   "toLL"(좌표->위경도,v1:x, v2:y) )
+**   LCC DFS 좌표변환 
+**   - code: "toXY" [ 위경도      -> 기상청 좌표, v1:위도, v2:경도 ]
+**   - code: "toLL" [ 기상청 좌표 -> 위경도,      v1:x,    v2:y   ]
 */
 function dfs_xy_conv(code, v1, v2) {
     var DEGRAD = Math.PI / 180.0;
@@ -78,10 +79,10 @@ function locationSuccess(p){
     var rs = dfs_xy_conv("toXY",latitude,longitude);
     console.log("x: ", rs.nx, "y: ",rs.ny);
     
-    //realTimeWeather1(rs.nx, rs.ny);
-    //realTimeWeather2(rs.nx, rs.ny);
-    //realTimeWeather3(rs.nx, rs.ny);
-    realTimeWeather4(rs.nx, rs.ny);
+    //Weather1(rs.nx, rs.ny);
+    //Weather2(rs.nx, rs.ny);
+    //Weather3(rs.nx, rs.ny);
+    Weather4(rs.nx, rs.ny);
 }
 
  function locationError(error){

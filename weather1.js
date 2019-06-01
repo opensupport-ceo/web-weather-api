@@ -7,35 +7,36 @@ function rplLine(value){
     }
 }
 
-function realTimeWeather1(nx, ny){
+function Weather1(nx, ny){
     var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
+    var week = new Array('일','월','화','수','목','금','토');
+    var year = today.getFullYear();
+    var month = today.getMonth()+1;
+    var day = today.getDate();
     var hours = today.getHours();
     var minutes = today.getMinutes();
     console.log("minutes: " + minutes)
  
     if(minutes < 30){
-        // 30분보다 작으면 한시간 전 값
+        // When minutes < 30, hours should be set value ealier than 1 hour.
         hours = hours - 1;
         if(hours < 0){
-            // 자정 이전은 전날로 계산
+            // When hours < 0, day should be set value of ealier day.
             today.setDate(today.getDate() - 1);
-            dd = today.getDate();
-            mm = today.getMonth()+1;
-            yyyy = today.getFullYear();
+            day = today.getDate();
+            month = today.getMonth()+1;
+            year = today.getFullYear();
             hours = 23;
         }
     }
     if(hours<10) {
         hours='0'+hours
     }
-    if(mm<10) {
-        mm='0'+mm
+    if(month<10) {
+        month='0'+month
     }
-    if(dd<10) {
-        dd='0'+dd
+    if(day<10) {
+        day='0'+day
     }
 
     /* 
@@ -43,13 +44,12 @@ function realTimeWeather1(nx, ny){
     ** Could not get weather info. when from 05:30 to 08:29.
     */
     //hours = '05';
-
     console.log(hours);
 
     var _nx = nx,
     _ny = ny,
-    apikey = "API-Key",
-    today = yyyy+""+mm+""+dd,
+    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
+    today = year+""+month+""+day,
     basetime = hours + "00",
     fileName = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     fileName += "?ServiceKey=" + apikey;
@@ -64,11 +64,13 @@ function realTimeWeather1(nx, ny){
         type: 'GET',
         cache: false,
         success: function(data) {
+            //console.log(data);
             //var myXML = rplLine(data.responseText);
             var myXML = JSON.stringify(data);
             var indexS = myXML.indexOf('"body":{"items":{');
             var indexE = myXML.indexOf("}]}");
             var result = myXML;
+            //console.log(myXML);
             //result = myXML.substring(indexS, indexE);
 
             var jsonObj = $.parseJSON('[' + result + ']');
@@ -89,10 +91,10 @@ function realTimeWeather1(nx, ny){
             console.log(temperature);
                       
             var contentText = document.getElementById('allweather');
-            contentText.innerHTML = "하늘 상태 : " + sky + " / 눈 비 상태 : " + rainsnow + " / 온도 : " + temperature;
+            contentText.innerHTML = "Sky: " + sky + " / RainSnow: " + rainsnow + " / Temperature : " + temperature;
         },
         error:function(request,status,error){
-            alert("다시 시도해주세요.\n" + "code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            alert("Please try again.\n" + "code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
         }
     });
  

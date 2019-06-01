@@ -9,9 +9,11 @@
 <script src="weather2.js"></script>
 <script src="weather1.js"></script>
 <script src="location.js"></script>
+<script src="ip-location.js"></script>
 <script type="text/javascript">
+    ipGeoLocation();
     getLocation();
-    //realTimeWeather(60, 128);
+    //Weather(60, 128);
 </script>
 </head>
 <body>
@@ -24,6 +26,7 @@
             <li class="weather-state-text"></li>
         </ul>
         <p id="allweather"></p>
+        <p id="ipLocation"></p>
     </div>
 </body>
 </html>
