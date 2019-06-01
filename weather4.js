@@ -39,7 +39,7 @@ function realTimeWeather4(nx, ny){
 
     var _nx = nx,
     _ny = ny,
-    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
+    apikey = "API-Key",
     today = yyyy+""+mm+""+dd,
     basetime = hours + "00",
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
@@ -72,7 +72,7 @@ function realTimeWeather4(nx, ny){
     }
     //httpRequest.onreadystatechange = alertContents;
     httpRequest.onreadystatechange = function() {
-        if(httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200)
+        if(httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status == 200)
         {
             //alert(httpRequest.responseText);
             var text = httpRequest.responseText;
