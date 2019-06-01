@@ -72,11 +72,11 @@ function dfs_xy_conv(code, v1, v2) {
 function locationSuccess(p){
 	var latitude = p.coords.latitude,
     longitude = p.coords.longitude;
-    console.log(latitude,longitude);
+    console.log("latitude: ", latitude, "longitude: ", longitude);
 
     // 위도/경도 -> 기상청 좌표x / 좌표 y 변환
     var rs = dfs_xy_conv("toXY",latitude,longitude);
-    console.log(rs.nx, rs.ny);
+    console.log("x: ", rs.nx, "y: ",rs.ny);
     
     //realTimeWeather1(rs.nx, rs.ny);
     //realTimeWeather2(rs.nx, rs.ny);
@@ -86,10 +86,10 @@ function locationSuccess(p){
 
  function locationError(error){
 	var errorTypes = {
-		0 : "무슨 에러냥~",
-		1 : "허용 안눌렀음",
-		2 : "위치가 안잡힘",
-		3 : "응답시간 지남"
+		0 : "Unkown error",
+		1 : "unaceptable",
+		2 : "fail to get location info.",
+		3 : "response tiemout"
 	};
 	var errorMsg = errorTypes[error.code];
 	console.log(errorMsg)
@@ -105,7 +105,7 @@ function getLocation(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(locationSuccess, locationError, geo_options);
     }else{
-        console.log("지오 로케이션 없음")
+        console.log("There is not location info.")
     }
 };
 
