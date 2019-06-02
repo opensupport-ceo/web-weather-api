@@ -38,7 +38,7 @@ function Weather4(nx, ny){
 
     var _nx = nx,
     _ny = ny,
-    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
+    apikey = "API-Key",
     today = year+""+ minutes +""+day,
     basetime = hours + "00",
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
@@ -87,10 +87,10 @@ function Weather4(nx, ny){
                 var sky = jsonObj[0].response.body.items.item[4].fcstValue;
                 var temperature = jsonObj[0].response.body.items.item[5].fcstValue;
                 
-                console.log(rainsnow);
+                console.log(rainsnow); // - 
                 console.log(rain_state);
                 console.log(rain);
-                console.log(sky);
+                console.log(sky); // -
                 console.log(temperature);
 
                 $('.weather-temp').html("Temperature :" + temperature.toFixed(1) + " ℃");

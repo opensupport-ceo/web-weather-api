@@ -47,7 +47,7 @@ function Weather2(nx, ny) {
     /* 좌표 */
     var _nx = nx; 
     var _ny = ny;
-    var apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D";
+    var apikey = "API-Key";
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
     ForecastGribURL += "?ServiceKey=" + apikey;
     ForecastGribURL += "&base_date=" + today;

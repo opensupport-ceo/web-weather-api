@@ -37,7 +37,7 @@ function Weather3(nx, ny){
 
     var _nx = nx,
     _ny = ny,
-    apikey = "GsIEPvrEMExP3XquMGH1bYL8tixNTFkfjICqMXpMg3z2%2Fm3GzrMkyvfkwMdk6bidaAPFrsJrojC829XMl0anMQ%3D%3D",
+    apikey = "API-Key",
     today = year+""+month+""+day,
     basetime = hours + "00",
     ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
