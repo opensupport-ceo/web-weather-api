@@ -1,4 +1,4 @@
-# SampleAppUsingKoreanWeatherOpenAPI
+# Sample App Using Korean Weather OpenAPI
 Sample Demo App Using Korean Weather Open API
 
 # You may need the plug-in for chrome browser because of CORS.
